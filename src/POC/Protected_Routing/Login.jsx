@@ -7,7 +7,14 @@ import { GoogleAuthProvider } from 'firebase/auth';
 
 function Login(props) {
   const setIsLoggedIn = props.setIsLoggedIn;
+  
+  if(props.setIsLoggedIn){
+    navigate("/");
+    return;
+  }
+
   const navigate = useNavigate();
+
   const handleLogin = async () => {
     //login wala logic
     //auth-step-4
