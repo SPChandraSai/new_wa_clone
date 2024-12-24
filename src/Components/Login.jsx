@@ -17,7 +17,7 @@ function Login(props) {
     //login wala logic
     //auth-step-4
     const result = await signInWithPopup(auth, new GoogleAuthProvider);
-    console.log(result);
+    console.log("result",result);
     setIsLoggedIn(true);
     // alert("Login");
     navigate("/");
@@ -37,11 +37,13 @@ function Login(props) {
           <Fingerprint className='h-20 w-20 text-[#04a784]' strokeWidth={1}/>
           <div>Sign In</div>
           <div className='text-gray-500'>Sign in with your google account to get started.</div>
-          <button className='flex gap-2 items-center bg-[#04a784] p-3 text-white rounded-[5px]'>
+          <button 
+            onClick={handleLogin}
+          className='flex gap-2 items-center bg-[#04a784] p-3 text-white rounded-[5px]'>
             <div>
               Sign in with Google
             </div>
-             <LoginIcon onClick={handleLogin}/>
+             <LoginIcon/>
           </button>
         </div>
       </div>
