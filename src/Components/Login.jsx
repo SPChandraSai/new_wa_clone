@@ -5,8 +5,25 @@ import { Fingerprint, LogIn as LoginIcon} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 // auth-step-3
 import { signInWithPopup } from 'firebase/auth';
-import {auth} from "../../firebase"
+import {auth, db} from "../../firebase"
 import { GoogleAuthProvider } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+
+async function createUser(authData){
+  const userObject = authData.user;
+  // const id = userObject.uid;
+  // const photoURL = userObject.photoURL;
+  // const name = userObject.displayName;
+  // const email = userObject.email;
+  const {uid, photoURL, displayName, email}=userObject;
+  // console.log("id: ",id," ",photoURL," ",name," ",email);
+  await setDoc(doc(db, "users", uid),{
+    email,
+    profile_pic:photoURL,
+    name:displayName
+  })
+  console.log("user data is added");
+}
 
 function Login(props) {
   const setIsLoggedIn = props.setIsLoggedIn;
@@ -16,8 +33,9 @@ function Login(props) {
   const handleLogin = async () => {
     //login wala logic
     //auth-step-4
-    const result = await signInWithPopup(auth, new GoogleAuthProvider);
-    console.log("result",result);
+    const userData = await signInWithPopup(auth, new GoogleAuthProvider);
+    // console.log("result",result);
+    await createUser(userData);
     setIsLoggedIn(true);
     // alert("Login");
     navigate("/");
