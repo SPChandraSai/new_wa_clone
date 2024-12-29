@@ -22,7 +22,7 @@ async function createUser(authData){
     profile_pic:photoURL,
     name:displayName
   })
-  console.log("user data is added");
+  // console.log("user data is added");
 }
 
 function Login(props) {

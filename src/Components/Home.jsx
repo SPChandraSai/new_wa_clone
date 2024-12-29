@@ -1,6 +1,7 @@
 import React from 'react'
 import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import ChatPanel from './ChatPanel';
 
 function Home() {
   const handleChanges=(e)=>{
@@ -30,10 +31,18 @@ function Home() {
   return (
     <>
       <div>Home</div>
-      <input type="file"
+      {/* <input type="file"
       accept='image/png image/jpeg image/webp'
       onChange={handleChanges}
-      ></input>
+      ></input> */}
+
+      {/* neeche ke 4 cheeze conditional rehne vaali hy */}
+      <ChatPanel></ChatPanel>
+      {/* <div>Chat panel</div> */}
+      {/* <div>profile</div> */}
+
+      {/* <div>Empty Chat</div> */}
+      {/* <div>Individual Chat</div> */}
     </>
   )
 }
