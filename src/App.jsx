@@ -11,9 +11,9 @@ function App() {
   return (
     <>
         <Routes>
-            <Route path="/" element={<ProtectedRoute isLoggedIn={isLoggedIn} >
+            <Route path="/" element={ 
               <Home setIsLoggedIn={setIsLoggedIn}></Home>
-            </ProtectedRoute>}></Route>
+            }></Route>
             <Route path="/chat/:uniqueId" element={
               <ProtectedRoute isLoggedIn={isLoggedIn}><Chat></Chat></ProtectedRoute>
             }></Route>
