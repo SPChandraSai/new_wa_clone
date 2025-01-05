@@ -1,7 +1,10 @@
+import { Navigate } from "react-router-dom";
+import { userAuth } from "./AuthContext";
+
 function ProtectedRoute(props){
-    const isLoggedIn = props.isLoggedIn;
+    const {userData}=userAuth();
     const childern = props.children;
-    if(isLoggedIn){
+    if(userData){
       return childern;
     }
     else{

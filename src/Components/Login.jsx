@@ -8,6 +8,7 @@ import { signInWithPopup } from 'firebase/auth';
 import {auth, db} from "../../firebase"
 import { GoogleAuthProvider } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
+import { userAuth } from './AuthContext';
 
 async function createUser(authData){
   const userObject = authData.user;
@@ -25,18 +26,24 @@ async function createUser(authData){
   // console.log("user data is added");
 }
 
-function Login(props) {
-  const setIsLoggedIn = props.setIsLoggedIn;
-
+function Login() {
+  const {setUserData} = userAuth();
   const navigate = useNavigate();
-
   const handleLogin = async () => {
     //login wala logic
     //auth-step-4
     const userData = await signInWithPopup(auth, new GoogleAuthProvider);
     // console.log("result",result);
     await createUser(userData);
-    setIsLoggedIn(true);
+    const userObject = userData.user;
+    const {uid, photoURL, displayName, email} = userObject;
+    //saved the userData into the context
+    setUserData({
+      id: uid,
+      profile_pic: photoURL,
+      email,
+      name: displayName
+    });
     // alert("Login");
     navigate("/");
   }
