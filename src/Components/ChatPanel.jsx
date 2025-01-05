@@ -15,9 +15,9 @@ function ChatPanel() {
     useEffect(() => {
         const getUsers = async () => {
             // isme collection pass kro and data milega 
-            const data = await getDocs(collection(db, 'users'));
+            const snapShot = await getDocs(collection(db, 'users'));
             // console.log(data.docs.length);
-            const arrayOfUser = data.docs.map((docs) => { return { userData: docs.data(), id: docs.id } });
+            const arrayOfUser = snapShot.data.docs.map((docs) => { return { userData: docs.data(), id: docs.id } });
             console.log("18", arrayOfUser);
             setUsers(arrayOfUser);
             setLoading(false);
