@@ -2,6 +2,7 @@ import React from 'react'
 import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import ChatPanel from './ChatPanel';
+import Chat from './Chat';
 
 function Home() {
   const handleChanges=(e)=>{
@@ -36,13 +37,11 @@ function Home() {
       onChange={handleChanges}
       ></input> */}
 
-      {/* neeche ke 4 cheeze conditional rehne vaali hy */}
+      {/* conditional rehne vaali hy --> chat list, profile */}
       <ChatPanel></ChatPanel>
-      {/* <div>Chat panel</div> */}
-      {/* <div>profile</div> */}
-
-      {/* <div>Empty Chat</div> */}
-      {/* <div>Individual Chat</div> */}
+      
+      {/* <div>Empty Chat</div>:<div>Individual Chat</div> */}
+      <Chat></Chat>
     </>
   )
 }

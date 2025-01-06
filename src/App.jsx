@@ -13,9 +13,11 @@ function App() {
             <Route path="/" element={<ProtectedRoute >
               <Home ></Home>
               </ProtectedRoute>}></Route>
-            <Route path="/chat/:uniqueId" element={
-              <ProtectedRoute ><Chat></Chat></ProtectedRoute>
+
+            <Route path="/:chatId" element={
+              <ProtectedRoute><Home></Home></ProtectedRoute>
             }></Route>
+            
             <Route path="/login" element={<Login ></Login>}></Route>
             <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
         </Routes>
