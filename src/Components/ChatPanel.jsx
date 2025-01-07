@@ -3,6 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from "../../firebase";
 import { CircleFadingPlusIcon, MessageSquare, UserRoundIcon } from 'lucide-react';
 import Profile from './Profile';
+import UserCard from './userCard';
 
 function ChatPanel() {
     //   list of users ko lekr aana hy firebase se
@@ -54,14 +55,7 @@ function ChatPanel() {
             {
                 isLoading ? <div>...loading</div> :
                     <div className="flex flex-col gap-3">
-                        {users.map(userObject => (
-                            <div key={userObject.id} className="flex gap-3 border-2">
-                                {/* render user data here */}
-                                <img src={userObject.userData.profile_pic} alt="" className="rounded-full h-10 w-10" />
-                                {/* ...other user data */}
-                                <h2>{userObject.userData.name}</h2>
-                            </div>
-                        ))}
+                        {users.map(userObject => <UserCard userObject={userObject}/>)}
                     </div>
             }
         </>
