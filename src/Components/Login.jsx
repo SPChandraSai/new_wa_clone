@@ -27,8 +27,15 @@ async function createUser(authData) {
 }
 
 function Login() {
-  const { setUserData } = userAuth();
+  const { setUserData, userData } = userAuth();
+
   const navigate = useNavigate();
+
+  if (userData != null) {
+    navigate("/");
+    return <></>
+  }
+
   const handleLogin = async () => {
     //login wala logic
     //auth-step-4
@@ -44,7 +51,7 @@ function Login() {
       email,
       name: displayName
     });
-    // alert("Login");
+    alert("Login");
     navigate("/");
   }
   return (

@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom"
 import Login from './Components/Login'
-import Chat from './Components/Chat';
+// import Chat from './Components/Chat';
 import Home from './Components/Home';
 import PageNotFound from './Components/PageNotFound';
 import ProtectedRoute from "./Components/ProtectedRoute";
