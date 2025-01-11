@@ -27,7 +27,7 @@ function ChatPanel() {
     }, []);
     const onBack = () => { setShowProfile(false) };
     if (showProfile == true) {
-        return <Profile onBack={onBack}/>
+        return <Profile onBack={onBack} />
     }
 
     return (
@@ -55,7 +55,7 @@ function ChatPanel() {
             {
                 isLoading ? <div>...loading</div> :
                     <div className="flex flex-col gap-3">
-                        {users.map(userObject => <UserCard userObject={userObject}/>)}
+                        {users.map(userObject => <UserCard userObject={userObject} key={userObject.id}/>)}
                     </div>
             }
         </div>
