@@ -1,8 +1,15 @@
 import { Navigate } from "react-router-dom";
 import { userAuth } from "./AuthContext";
+import { Loader2Icon } from "lucide-react";
 
 function ProtectedRoute(props){
-    const {userData}=userAuth();
+    const {userData, loading}=userAuth();
+    // console.log("user Data", userData);
+    if(loading){
+      return <div className="w-screen h-screen flex items-center justify-center bg-[#eff2f5]">
+        <Loader2Icon className="w-8 h-8 animate-spin"/>
+      </div>
+    }
     const childern = props.children;
     if(userData){
       return childern;

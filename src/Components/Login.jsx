@@ -8,7 +8,6 @@ import { signInWithPopup } from 'firebase/auth';
 import { auth, db } from "../../firebase"
 import { GoogleAuthProvider } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { userAuth } from './AuthContext';
 
 async function createUser(authData) {
   const userObject = authData.user;
@@ -27,15 +26,6 @@ async function createUser(authData) {
 }
 
 function Login() {
-  const { setUserData, userData } = userAuth();
-
-  const navigate = useNavigate();
-
-  if (userData != null) {
-    navigate("/");
-    return <></>
-  }
-
   const handleLogin = async () => {
     //login wala logic
     //auth-step-4
@@ -43,16 +33,6 @@ function Login() {
     // console.log("result",result);
     await createUser(userData);
     const userObject = userData.user;
-    const { uid, photoURL, displayName, email } = userObject;
-    //saved the userData into the context
-    setUserData({
-      id: uid,
-      profile_pic: photoURL,
-      email,
-      name: displayName
-    });
-    alert("Login");
-    navigate("/");
   }
   return (
     <>
