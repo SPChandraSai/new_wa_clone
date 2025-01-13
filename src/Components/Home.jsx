@@ -36,7 +36,7 @@ function Home() {
       onChange={handleChanges}
       ></input> */}
 
-      <div className="bg-[#eff2f5] w-full h-full shadow-md flex">
+      <div className="bg-background w-full h-full shadow-md flex">
         {/* conditional rehne vaali hy --> chat list, profile */}
         <ChatPanel></ChatPanel>
         {/* <div>Empty Chat</div>:<div>Individual Chat</div> */}

@@ -12,7 +12,7 @@ export function userAuth() {
 
 function AuthWrapper({ children }) {
     const [userData, setUserData] = useState(null);
-    const [loading, setLoading]=useState(true);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         //checks if u have logged in before
         //kuch bhi changes honge --> yaha update ho jayega without refreshing the page
@@ -22,13 +22,13 @@ function AuthWrapper({ children }) {
                 const docRef = doc(db, "users", currentUser?.uid);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
-                    const { uid, photoURL, displayName, email } = docSnap.data();
+                    const { profile_pic, name, email } = docSnap.data();
                     //saved the userData into the context
                     setUserData({
-                        id: uid,
-                        profile_pic: photoURL,
+                        id: currentUser.uid,
+                        profile_pic,
                         email,
-                        name: displayName
+                        name
                     });
                     console.log("userData Added");
                 }
