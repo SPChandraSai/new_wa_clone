@@ -1,13 +1,35 @@
-import { MessageSquareText } from 'lucide-react';
-import React from 'react'
+import { MessageSquareText, PlusIcon, SendIcon } from 'lucide-react';
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { db } from '../../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 function ChatWindow() {
   const params = useParams();
-  // console.log("Chat params: ", params);
+  const [msg, setMsg] = useState("");
+  const [secondUser, setSecondUser] = useState();
+  const receiverId = params.chatId
+
+  const handleSendMsg = () => {
+    console.log(msg);
+    setMsg("");
+  }
+
+  useEffect(() => {
+    //request, data fetch
+    const getUser = async () => {
+      const docRef = doc(db, "users", receiverId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setSecondUser(docSnap.data());
+      }
+    };
+    getUser();
+  }, [receiverId])
 
   //Empty screen
-  if (!params.chatId)
+  if (!receiverId)
     return (
       <section className="w-[70%] h-full flex flex-col gap-4 items-center justify-center">
         <MessageSquareText
@@ -21,7 +43,46 @@ function ChatWindow() {
         </p>
       </section>
     );
-    return <h2>Chat : {params.chatId}</h2>
+
+  //Chat screen
+  return <section className="w-[70%] h-full flex flex-col gap-4 items-center justify-center">
+    <div className="h-full w-full bg-chat-bg flex flex-col">
+      {/* top bar */}
+      <div className="bg-background py-2 px-4 flex items-center gap-2 shadow-sm">
+        <img
+          src={secondUser?.profile_pic || "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"}
+          alt="profile picture"
+          className="w-9 h-9 rounded-full object-cover"
+        />
+        <h3>{secondUser?.name}</h3>
+      </div>
+
+      {/* messages list */}
+      <div className="flex-grow flex flex-col gap-12 p-6 ">
+
+      </div>
+
+      {/* chat input */}
+      <div className="bg-background py-3 px-6 shadow flex items-center gap-6">
+        <PlusIcon />
+        <input type="text" className="w-full py-2 px-4 rounded focus:outline-none" placeholder="Type a message"
+          value={msg}
+          onChange={(e) => {
+            setMsg(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSendMsg();
+            }
+          }}
+
+        />
+        <button onClick={handleSendMsg}>
+          <SendIcon />
+        </button>
+      </div>
+    </div>
+  </section>
 }
 
 export default ChatWindow

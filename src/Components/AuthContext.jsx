@@ -16,7 +16,7 @@ function AuthWrapper({ children }) {
     useEffect(() => {
         //checks if u have logged in before
         //kuch bhi changes honge --> yaha update ho jayega without refreshing the page
-        onAuthStateChanged(auth, async (currentUser) => {
+        const unsubscribe =  onAuthStateChanged(auth, async (currentUser) => {
             setLoading(true);
             if (currentUser) {
                 const docRef = doc(db, "users", currentUser?.uid);
@@ -35,6 +35,9 @@ function AuthWrapper({ children }) {
             }
             setLoading(false);
         })
+        return ()=>{
+            unsubscribe();
+        }
     }, [])
     console.log("userData", userData);
     return <AuthContext.Provider value={{ setUserData, userData, loading }}>
