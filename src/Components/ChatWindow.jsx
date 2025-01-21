@@ -109,13 +109,20 @@ function ChatWindow() {
           alt="profile picture"
           className="w-9 h-9 rounded-full object-cover"
         />
-        <h3>{secondUser?.name}</h3>
+        <div>
+          <h3>{secondUser?.name}</h3>
+          {secondUser?.lastSeen && (
+            <p className="text-xs text-neutral-400">
+              last seen at {secondUser?.lastSeen}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* messages list */}
       <div className="flex-grow flex flex-col gap-12 p-6 overflow-scroll">
         {msgList?.map((m, index) => {
-        return <div
+          return <div
             key={index}
             data-sender={m.sender === userData.id}
             className={`bg-white w-fit rounded-md p-2 shadow-sm max-w-[400px] break-words data-[sender=true]:ml-auto data-[sender=true]:bg-primary-light`}

@@ -11,17 +11,20 @@ import { doc, setDoc } from 'firebase/firestore';
 
 async function createUser(authData) {
   const userObject = authData.user;
-  // const id = userObject.uid;
-  // const photoURL = userObject.photoURL;
-  // const name = userObject.displayName;
-  // const email = userObject.email;
   const { uid, photoURL, displayName, email } = userObject;
-  // console.log("id: ",id," ",photoURL," ",name," ",email);
+  const date = new Date();
+  const timestamp = date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
   await setDoc(doc(db, "users", uid), {
     email,
     profile_pic: photoURL,
-    name: displayName
-  })
+    name: displayName,
+    lastSeen: timestamp,
+  });
   // console.log("user data is added");
 }
 
