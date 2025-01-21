@@ -20,7 +20,7 @@ function ChatWindow() {
       : `${receiverId}-${userData?.id}`;
 
   const handleSendMsg = async () => {
-    console.log("msg", msg);
+    // console.log("msg", msg);
     if (msg) {
       const date = new Date();
       const timestamp = date.toLocaleString("en-US", {
@@ -113,7 +113,7 @@ function ChatWindow() {
       </div>
 
       {/* messages list */}
-      <div className="flex-grow flex flex-col gap-12 p-6 ">
+      <div className="flex-grow flex flex-col gap-12 p-6 overflow-scroll">
         {msgList?.map((m, index) => {
         return <div
             key={index}
