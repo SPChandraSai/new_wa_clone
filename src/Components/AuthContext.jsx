@@ -22,7 +22,7 @@ function AuthWrapper({ children }) {
                 const docRef = doc(db, "users", currentUser?.uid);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
-                    const { profile_pic, name, email, lastSeen } = docSnap.data();
+                    const { profile_pic, name, email, lastSeen, status } = docSnap.data();
                     //saved the userData into the context
                     await SetLastSeen(currentUser);
                     setUserData({
@@ -30,7 +30,8 @@ function AuthWrapper({ children }) {
                         profile_pic,
                         email,
                         name,
-                        lastSeen
+                        lastSeen,
+                        status: status ? status : ""
                     });
                 }
             }
@@ -41,7 +42,7 @@ function AuthWrapper({ children }) {
         }
     }, [])
 
-    const SetLastSeen = async(user) => {
+    const SetLastSeen = async (user) => {
         const date = new Date();
         const timeStamp = date.toLocaleString("en-US", {
             hour: "numeric",
@@ -53,8 +54,19 @@ function AuthWrapper({ children }) {
         });
     }
 
+    const updateName = async (newName) => {
+        await updateDoc(doc(db, "users", userData.id), {
+            name: newName
+        });
+    }
+    const updateStatus = async (newstatus) => {
+        await updateDoc(doc(db, "users", userData.id), {
+            status: newstatus
+        });
+    }
+
     console.log("userData", userData);
-    return <AuthContext.Provider value={{ setUserData, userData, loading }}>
+    return <AuthContext.Provider value={{ setUserData, userData, loading, updateName, updateStatus }}>
         {children}
     </AuthContext.Provider>
 }
