@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from "../../firebase";
-import { CircleFadingPlusIcon, MessageSquare, UserRoundIcon } from 'lucide-react';
+import { CircleFadingPlusIcon, Loader2Icon, MessageSquare, UserRoundIcon } from 'lucide-react';
 import Profile from './Profile';
 import UserCard from './userCard';
 import { userAuth } from './AuthContext';
@@ -32,7 +32,7 @@ function ChatPanel() {
     }
 
     return (
-        <div className=" bg-white w-[30vw]">
+        <div className=" bg-white w-[30vw] min-w-[350px]">
             {/* top-bar */}
             <div className="bg-background py-2 px-4 border-r flex justify-between items-center gap-2">
                 <button
@@ -54,8 +54,8 @@ function ChatPanel() {
 
             {/* chat list */}
             {
-                isLoading ? <div>...loading</div> :
-                    <div className="flex flex-col gap-3">
+                isLoading ? <div className="h-full w-full flex justify-center items-center"><Loader2Icon className="w-10 h-10 animate-spin"/> </div> :
+                    <div className=" divide-y py-4  h-full max-h-[calc(100vh-152px)] overflow-y-scroll ">
                         {users.map(userObject => <UserCard userObject={userObject} key={userObject.id}/>)}
                     </div>
             }
