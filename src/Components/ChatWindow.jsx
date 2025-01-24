@@ -119,20 +119,21 @@ function ChatWindow() {
         </div>
       </div>
 
-      {/* messages list */}
-      <div className="flex-grow flex flex-col gap-12 p-6 overflow-scroll">
-        {msgList?.map((m, index) => {
-          return <div
+      {/* message list */}
+      <div className="flex-grow flex flex-col gap-12 p-6  overflow-y-scroll ">
+        {msgList?.map((m, index) => (
+          <div
             key={index}
             data-sender={m.sender === userData.id}
-            className={`bg-white w-fit rounded-md p-2 shadow-sm max-w-[400px] break-words data-[sender=true]:ml-auto data-[sender=true]:bg-primary-light`}
+            // break-words is the edge case where a single word is quite long, so we need to break that word before it breaks our ui.
+            className={`bg-white  w-fit rounded-md p-2 shadow-sm max-w-[400px] break-words data-[sender=true]:ml-auto data-[sender=true]:bg-primary-light `}
           >
             <p>{m?.text}</p>
-            <p className="text-xs text-neutral-500 text-end">
+            <p className="text-xs text-neutral-500  text-end">
               {m?.time}
             </p>
           </div>
-        })}
+        ))}
       </div>
 
       {/* chat input */}
