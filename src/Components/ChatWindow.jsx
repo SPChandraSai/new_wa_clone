@@ -20,7 +20,6 @@ function ChatWindow() {
       : `${receiverId}-${userData?.id}`;
 
   const handleSendMsg = async () => {
-    // console.log("msg", msg);
     if (msg) {
       const date = new Date();
       const timestamp = date.toLocaleString("en-US", {

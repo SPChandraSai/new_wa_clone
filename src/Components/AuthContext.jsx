@@ -82,7 +82,6 @@ function AuthWrapper({ children }) {
                 //on State Changed
                 setIsUploading(true);
                 setError(null);
-                // console.log("unable to upload");
             },
             () => {
                 //on Error
@@ -108,7 +107,6 @@ function AuthWrapper({ children }) {
         );
     };
 
-    console.log("userData", userData);
     return <AuthContext.Provider value={{ setUserData, userData, loading, updateName, updateStatus, updatePhoto, isUploading, error }}>
         {children}
     </AuthContext.Provider>
