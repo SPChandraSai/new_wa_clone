@@ -80,7 +80,7 @@ function AuthWrapper({ children }) {
                 //on State Changed
                 setIsUploading(true);
                 setError(null);
-                console.log("unable to upload");
+                // console.log("unable to upload");
             },
             () => {
                 //on Error

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ArrowLeft, CheckIcon } from 'lucide-react'
+import { ArrowLeft, CheckIcon, Edit2Icon, Loader2Icon } from 'lucide-react'
 import { userAuth } from './AuthContext'
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -26,16 +26,29 @@ function Profile(props) {
       </div>
 
       <div className=" flex flex-col items-center justify-center gap-8 mt-8 ">
-        <img src={userData.profile_pic} alt="" className="rounded-full h-10 w-10" />
-        <input
-          type="file"
-          accept="image/png, image/gif, image/jpeg"
-          onChange={(e) => {
-            updatePhoto(e.target.files?.[0]);
-          }}
-        />
-        {isUploading && <h2>...loading</h2>}
-        {error && <h2 className="text-red-500">{error}</h2>}
+        <label className={` group relative cursor-pointer rounded-full overflow-hidden ${isUploading ? "pointer-events-none" : ""}`}>
+          <img src={userData.profile_pic} className="w-[160px] h-[160px] object-cover "
+            alt="profile picture"
+          />
+          {isUploading ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/10 z-10">
+              <Loader2Icon className="w-6 h-6 text-primary-dence animate-spin z-10" />
+            </div>
+          ) : (
+            <div className="absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/30 z-10">
+              <Edit2Icon className="w-6 h-6 text-white" />
+            </div>
+          )}
+          <input
+            type="file"
+            accept="image/png, image/gif, image/jpeg"
+            onChange={(e) => {
+              updatePhoto(e.target.files?.[0]);
+            }}
+            className="hidden"
+          />
+        </label>
+        {error && <p className="text-red-600 text-sm">{error}</p>}
 
         <div className="flex flex-col bg-white w-full py-4 px-8">
           <label className="text-sm text-primary-dence mb-2">Your name</label>
