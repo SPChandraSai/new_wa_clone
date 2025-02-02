@@ -35,6 +35,7 @@ function ChatWindow() {
           messages: [
             {
               text: msg,
+              // Image:msg,
               time: timestamp,
               sender: userData.id,
               receiver: receiverId,
@@ -49,6 +50,7 @@ function ChatWindow() {
           //arrayUnion is used here to append last message to the array list.
           messages: arrayUnion({
             text: msg,
+            // Image:msg,
             time: timestamp,
             sender: userData.id,
             receiver: receiverId,
@@ -137,8 +139,12 @@ function ChatWindow() {
 
       {/* chat input */}
       <div className="bg-background py-3 px-6 shadow flex items-center gap-6">
-        <PlusIcon />
-        <input type="text" className="w-full py-2 px-4 rounded focus:outline-none" placeholder="Type a message"
+        {/* <button onClick={handleSendMsg}>
+          <PlusIcon>
+            gonna implement image sending just as text
+          </PlusIcon>
+        </button> */}
+        <input type="text" accept="image/png, image/gif, image/jpeg" className="w-full py-2 px-4 rounded focus:outline-none" placeholder="Type a message"
           value={msg}
           onChange={(e) => {
             setMsg(e.target.value);
@@ -148,7 +154,6 @@ function ChatWindow() {
               handleSendMsg();
             }
           }}
-
         />
         <button onClick={handleSendMsg}>
           <SendIcon />
